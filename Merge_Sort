@@ -1,0 +1,70 @@
+#include<stdlib.h> 
+#include<stdio.h> 
+void merge(int a[],int l,int mid,int r) 
+{ 
+    int i, j, k; 
+    int n1=mid-l+1; 
+    int n2=r-mid; 
+    int left[n1],right[n2]; 
+    for(int i=0;i< n1;i++) 
+        left[i]=a[l+i]; 
+    for(j=0;j<n2;j++) 
+        right[j]=a[mid+1+j]; 
+    i = 0; 
+    j = 0; 
+    k = l; 
+    while(i<n1&&j<n2) 
+    { 
+        if(left[i]<=right[j]) 
+        { 
+            a[k]=left[i]; 
+            i++; 
+        } 
+        else
+        { 
+            a[k]=right[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+    while(i<n1) 
+    { 
+        a[k]=left[i]; 
+        i++; 
+        k++; 
+    } 
+    while(j<n2) 
+    { 
+        a[k]=right[j]; 
+        j++; 
+        k++; 
+    } 
+}
+void merge_sort(int a[],int l,int r) 
+{ 
+    if (l<r) 
+    { 
+        int mid=l+(r-l)/2; 
+        merge_sort(a,l,mid); 
+        merge_sort(a,mid+1,r); 
+        merge(a,l,mid,r); 
+    } 
+} 
+void print_sorted(int a[], int n) 
+{ 
+    for (int i=0;i<n;i++) 
+        printf("%d ",a[i]); 
+}   
+int main() 
+{ 
+    int arr[10],size;
+    printf("Enter the number of elements : ");
+    scanf("%d",&size);
+    printf("Enter the elements to be sorted :\n");
+    for(int i=0;i<size;i++)
+        scanf("%d",&arr[i]);
+    merge_sort(arr,0,size-1); 
+    printf("\nSORTED ARRAY\n"); 
+    print_sorted(arr,size); 
+    return 0; 
+}
